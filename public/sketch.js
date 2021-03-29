@@ -1,11 +1,10 @@
-
 let socket;
 
-// this class describes the properties of a single particle.
-class Particle {
+// this class describes the properties of a single dumpling.
+class Dumpling {
 
     // setting the co-ordinates, radius and the
-    // speed of a particle in both the co-ordinates axes.
+    // speed of a dumpling in both the co-ordinates axes.
     constructor(img){
         this.x = width/2;
         this.y = height/2;
@@ -14,14 +13,14 @@ class Particle {
         this.img = img;
     }
 
-// creation of a particle.
-    createParticle() {
+// creation of a dumpling.
+    createDumpling() {
         noStroke();
         image(this.img, this.x, this.y, 40, 40);
     }
 
-// setting the particle in motion.
-    moveParticle() {
+// setting the dumpling in motion.
+    moveDumpling() {
         if(this.x  < 18 || this.x + 40 > width - 20)
             this.xSpeed*=-1;
         if(this.y  < 70 || this.y + 40 > height - 18)
@@ -32,7 +31,7 @@ class Particle {
 }
     
 // an array to add multiple particles
-let particles = [];
+let dumplings = [];
 let dangos = [];
 let img;
 let randIndex;
@@ -53,11 +52,11 @@ function setup(){
     dangos.push(loadImage('dango-yellow.png'));
 
     //receives event and handles it
-    socket.on('newFollower', (data)=>{
+    socket.on('newFollower', ()=>{
         //some code that handles
         randIndex = getRandomInt(dangos.length);
         console.log(randIndex);
-        particles.push(new Particle(dangos[randIndex]));
+        dumplings.push(new Dumpling(dangos[randIndex]));
     });
 
     img = loadImage('jar.png');
@@ -66,8 +65,8 @@ function setup(){
 
 function draw(){
     background(img);
-    for(let i = 0;i<particles.length;i++) {
-      particles[i].createParticle();
-      particles[i].moveParticle();
+    for(let i = 0;i<dumplings.length;i++) {
+        dumplings[i].createDumpling();
+        dumplings[i].moveDumpling();
     }
 }
